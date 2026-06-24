@@ -33,6 +33,27 @@ async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
         await client.connect();
+
+        // creaete database and collection
+        const db = client.db("zap_shift_db");
+        const parcelsCollection = db.collection("parcels");
+
+
+        // parcels releted apis
+        // get all parcels
+        app.get("/parcels", async (req, res) => {
+
+        });
+
+        // post a parcel
+        app.post("/parcels", async (req, res) => {
+            const parcel = req.body;
+            const result = await parcelsCollection.insertOne(parcel);
+            res.send(result);
+        });
+
+
+
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
